@@ -6,11 +6,12 @@ vector<int> BFS(vector<int> &vis, vector<vector<int>> &graph)
     vector<int> result;
     q.push(0);
     vis[0] = 1;
+    result.push_back(0);
     while (!q.empty())
     {
         int node = q.front();
         q.pop();
-        result.push_back(node);
+        // result.push_back(node);
 
         for (auto &&i : graph[node])
         {
@@ -18,6 +19,7 @@ vector<int> BFS(vector<int> &vis, vector<vector<int>> &graph)
             {
                 q.push(i);
                 vis[i] = 1;
+                result.push_back(i);
             }
         }
     }
