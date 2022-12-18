@@ -20,7 +20,6 @@ void bfs(vector<vector<int>> &graph, int n, int m, vector<vector<int>> &vis)
 
                 if (neighbourRow >= 0 and neighbourCol >= 0 and neighbourRow < graph.size() and neighbourCol < graph[0].size() and graph[neighbourRow][neighbourCol] == 1 and !vis[neighbourRow][neighbourCol])
                 {
-                    cout << "neighbourRow: " << neighbourRow << " neighbourCol: " << neighbourCol << endl;
                     vis[neighbourRow][neighbourCol] = 1;
                     q.push({neighbourRow, neighbourCol});
                 }
