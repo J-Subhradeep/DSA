@@ -16,16 +16,17 @@ bool subseq(int n, int index, vector<int> &a, int arr[], int sum, int k)
                 cout << "{}";
             }
             cout << endl;
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     a.push_back(arr[index]);
-    bool t = subseq(n, index + 1, a, arr, sum += arr[index], k);
+    if (subseq(n, index + 1, a, arr, sum += arr[index], k) == true)
+        return true;
     a.pop_back();
-    if (!t)
-        subseq(n, index + 1, a, arr, sum -= arr[index], k);
+    if (subseq(n, index + 1, a, arr, sum -= arr[index], k) == true)
+        return true;
     //  if we want only one subsequence we need to convert the function in bool and the upper line should be executed like that
     return false;
 }
