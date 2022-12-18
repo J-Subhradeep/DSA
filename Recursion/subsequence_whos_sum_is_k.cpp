@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-void subseq(int n, int index, vector<int> &a, int arr[], int sum, int k)
+bool subseq(int n, int index, vector<int> &a, int arr[], int sum, int k)
 {
     if (index >= n)
     {
@@ -18,13 +18,16 @@ void subseq(int n, int index, vector<int> &a, int arr[], int sum, int k)
             cout << endl;
         }
 
-        return;
+        return true;
     }
 
     a.push_back(arr[index]);
-    subseq(n, index + 1, a, arr, sum += arr[index], k);
+    bool t = subseq(n, index + 1, a, arr, sum += arr[index], k);
     a.pop_back();
-    subseq(n, index + 1, a, arr, sum -= arr[index], k);
+    if (!t)
+        subseq(n, index + 1, a, arr, sum -= arr[index], k);
+    //  if we want only one subsequence we need to convert the function in bool and the upper line should be executed like that
+    return false;
 }
 int main(int argc, char const *argv[])
 {
