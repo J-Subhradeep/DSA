@@ -21,8 +21,9 @@ void subseqSum(int index, vector<int> arr, vector<int> ds, int sum)
 }
 int main(int argc, char const *argv[])
 {
-    vector<int> arr{1, 2, 2};
+    vector<int> arr{1, 2, 2, 1};
     int sum = 0;
+    sort(arr.begin(), arr.end());
     subseqSum(0, arr, vector<int>(), sum);
     return 0;
 }
