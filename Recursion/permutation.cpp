@@ -23,13 +23,7 @@ void permutation(int index, vector<int> arr, vector<int> ds, vector<int> mapper)
         }
     }
 }
-void generate(vector<int> arr, vector<int> ds, vector<int> mapper)
-{
-    for (int i = 0; i < arr.size(); i++)
-    {
-        permutation(i, arr, ds, mapper);
-    }
-}
+
 int main(int argc, char const *argv[])
 {
     vector<int> arr{1, 2, 3, 4};
