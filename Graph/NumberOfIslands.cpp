@@ -1,47 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
-void bfs(vector<vector<int>> &graph, int n, int m, vector<vector<int>> &vis)
+void dfs(vector<vector<int>> &graph, vector<vector<int>> &vis, int row, int col)
 {
-    vis[n][m] = 1;
-    queue<pair<int, int>> q;
-    pair<int, int> p;
-    q.push(make_pair(n, m));
-    while (!q.empty())
+    if (row >= graph.size() || col >= graph[0].size() || row < 0 || col < 0)
     {
-        p = q.front();
-        q.pop();
-
-        for (int delRow = -1; delRow <= 1; delRow++)
-        {
-            for (int delCol = -1; delCol <= 1; delCol++)
-            {
-                int neighbourRow = delRow + p.first;
-                int neighbourCol = delCol + p.second;
-
-                if (neighbourRow >= 0 and neighbourCol >= 0 and neighbourRow < graph.size() and neighbourCol < graph[0].size() and graph[neighbourRow][neighbourCol] == 1 and !vis[neighbourRow][neighbourCol])
-                {
-                    vis[neighbourRow][neighbourCol] = 1;
-                    q.push({neighbourRow, neighbourCol});
-                }
-            }
-        }
+        return;
     }
-}
-int traverse(vector<vector<int>> &graph, int n, int m)
-{
+    if (!graph[row][col] || vis[row][col])
+        return;
+    vis[row][col] = 1;
+    // dfs(graph, vis, row + 1, col);
+    // dfs(graph, vis, row - 1, col);
+    // dfs(graph, vis, row - 1, col - 1);
+    // dfs(graph, vis, row - 1, col + 1);
+    // dfs(graph, vis, row + 1, col + 1);
+    // dfs(graph, vis, row + 1, col - 1);
+    // dfs(graph, vis, row, col - 1);
+    // dfs(graph, vis, row, col + 1);
 
+    // instead of those 8 line we can simply write this loops
+    for (int i = -1; i < 2; i++)
+        for (int j = -1; j < 2; j++)
+            dfs(graph, vis, row + i, col + j);
+}
+int traverse(vector<vector<int>> &graph, vector<vector<int>> &vis)
+{
     int count = 0;
-    vector<int> v(m, 0);
-    vector<vector<int>> vis(n, v);
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < graph.size(); i++)
     {
-        for (int j = 0; j < m; j++)
+        for (int j = 0; j < graph[0].size(); j++)
         {
-            /* code */
             if (!vis[i][j] && graph[i][j])
             {
-                bfs(graph, i, j, vis);
                 count++;
+                dfs(graph, vis, i, j);
             }
         }
     }
@@ -49,21 +41,15 @@ int traverse(vector<vector<int>> &graph, int n, int m)
 }
 int main(int argc, char const *argv[])
 {
-    int n, m;
-    cin >> n >> m;
-    vector<int> v(m, 0);
-    vector<vector<int>> graph(n, v);
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            int x;
-            cin >> x;
-            graph[i][j] = x;
-        }
-    }
-    int a = traverse(graph, n, m);
-    cout << endl
-         << a << endl;
+    vector<vector<int>> graph{
+        {0, 1, 0, 0},
+        {0, 1, 0, 0},
+        {0, 0, 0, 0},
+        {1, 1, 0, 1},
+        {0, 0, 0, 1},
+        {1, 1, 1, 1},
+    };
+    vector<vector<int>> vis(graph.size(), vector<int>(graph[0].size(), 0));
+    cout << traverse(graph, vis);
     return 0;
 }
