@@ -13,6 +13,8 @@ void solve(vector<vector<int>> &graph, vector<vector<int>> &vis, int &time)
             }
         }
     }
+    int rowD[] = {+1, -1, 0, 0};
+    int colD[] = {0, 0, +1, -1};
     while (!q.empty())
     {
         pair<pair<int, int>, int> p = q.front();
@@ -23,25 +25,36 @@ void solve(vector<vector<int>> &graph, vector<vector<int>> &vis, int &time)
         if (t > time)
             time = t;
         t++;
-        if (m + 1 < graph.size() && n < graph.size() && m + 1 >= 0 && n >= 0 && vis[m + 1][n] == 1)
+
+        // if (m + 1 < graph.size() && n < graph.size() && m + 1 >= 0 && n >= 0 && vis[m + 1][n] == 1)
+        // {
+        //     vis[m + 1][n] = 2;
+        //     q.push({{m + 1, n}, t});
+        // }
+        // if (m - 1 < graph.size() && n < graph.size() && m - 1 >= 0 && n >= 0 && vis[m - 1][n] == 1)
+        // {
+        //     vis[m - 1][n] = 2;
+        //     q.push({{m - 1, n}, t});
+        // }
+        // if (m < graph.size() && n + 1 < graph.size() && m >= 0 && n + 1 >= 0 && vis[m][n + 1] == 1)
+        // {
+        //     vis[m][n + 1] = 2;
+        //     q.push({{m, n + 1}, t});
+        // }
+        // if (m < graph.size() && n - 1 < graph.size() && m >= 0 && n - 1 >= 0 && vis[m][n - 1] == 1)
+        // {
+        //     vis[m][n - 1] = 2;
+        //     q.push({{m, n - 1}, t});
+        // }
+
+        /// minimize code
+        for (int i = 0; i < 4; i++)
         {
-            vis[m + 1][n] = 2;
-            q.push({{m + 1, n}, t});
-        }
-        if (m - 1 < graph.size() && n < graph.size() && m - 1 >= 0 && n >= 0 && vis[m - 1][n] == 1)
-        {
-            vis[m - 1][n] = 2;
-            q.push({{m - 1, n}, t});
-        }
-        if (m < graph.size() && n + 1 < graph.size() && m >= 0 && n + 1 >= 0 && vis[m][n + 1] == 1)
-        {
-            vis[m][n + 1] = 2;
-            q.push({{m, n + 1}, t});
-        }
-        if (m < graph.size() && n - 1 < graph.size() && m >= 0 && n - 1 >= 0 && vis[m][n - 1] == 1)
-        {
-            vis[m][n - 1] = 2;
-            q.push({{m, n - 1}, t});
+            if (m + rowD[i] < graph.size() && n + colD[i] < graph.size() && m + rowD[i] >= 0 && n + colD[i] >= 0 && vis[m + rowD[i]][n + colD[i]] == 1)
+            {
+                vis[m + rowD[i]][n + colD[i]] = 2;
+                q.push({{m + rowD[i], n + colD[i]}, t});
+            }
         }
     }
 }
@@ -57,7 +70,7 @@ int main(int argc, char const *argv[])
     vector<vector<int>> graph{
         {2, 1, 1},
         {1, 1, 0},
-        {0, 1, 1},
+        {0, 0, 1},
 
     };
     cout << required_time(graph);
