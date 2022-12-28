@@ -2,7 +2,7 @@
 using namespace std;
 void dfs(vector<vector<int>> &graph, vector<vector<int>> &vis, int sr, int sc, pair<int, int> base, vector<pair<int, int>> &ds)
 {
-    if (sr >= 0 && sr < graph.size() && sc >= 0 && sc < graph.size() && !vis[sr][sc] && graph[sr][sc])
+    if (sr >= 0 && sr < graph.size() && sc >= 0 && sc < graph[0].size() && !vis[sr][sc] && graph[sr][sc])
     {
         vis[sr][sc] = 1;
         ds.push_back({base.first - sr, base.second - sc});
@@ -36,9 +36,10 @@ int solve(vector<vector<int>> &graph, vector<vector<int>> &vis)
 int main(int argc, char const *argv[])
 {
     vector<vector<int>> graph{
-        {1, 1, 0, 1},
-        {1, 1, 0, 0},
+        {1, 0, 0, 1},
+        {1, 0, 0, 0},
         {0, 0, 1, 1},
+        {1, 0, 1, 1},
         {1, 0, 1, 1},
 
     };
